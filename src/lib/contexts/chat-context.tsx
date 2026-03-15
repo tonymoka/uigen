@@ -16,11 +16,20 @@ interface ChatContextProps {
   initialMessages?: Message[];
 }
 
+interface Attachment {
+  name: string;
+  contentType: string;
+  url: string;
+}
+
 interface ChatContextType {
   messages: Message[];
   input: string;
   handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleSubmit: (
+    e: React.FormEvent<HTMLFormElement>,
+    options?: { experimental_attachments?: Attachment[] }
+  ) => void;
   status: string;
 }
 
