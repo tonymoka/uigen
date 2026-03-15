@@ -32,6 +32,9 @@ jobs:
 
       - name: Project Setup
         run: |
+          npm install --legacy-peer-deps
+          npx prisma generate
+          npx prisma migrate dev
           npm run setup
           npm run dev:daemon
 
