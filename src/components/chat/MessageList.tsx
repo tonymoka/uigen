@@ -2,7 +2,7 @@
 
 import { Message } from "ai";
 import { cn } from "@/lib/utils";
-import { User, Bot, Loader2 } from "lucide-react";
+import { User, Bot, Loader2, FileText } from "lucide-react";
 import { MarkdownRenderer } from "./MarkdownRenderer";
 
 const TOOL_DISPLAY_NAMES: Record<string, string> = {
@@ -51,10 +51,32 @@ export function MessageList({ messages, isLoading }: MessageListProps) {
               "flex flex-col gap-2 max-w-[85%]",
               message.role === "user" ? "items-end" : "items-start"
             )}>
+              {message.role === "user" && message.experimental_attachments && message.experimental_attachments.length > 0 && (
+                <div className="flex flex-wrap gap-2 justify-end">
+                  {message.experimental_attachments.map((attachment, i) => (
+                    attachment.contentType?.startsWith("image/") ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        key={i}
+                        src={attachment.url}
+                        alt={attachment.name ?? "attachment"}
+                        className="max-h-48 max-w-xs rounded-lg border border-neutral-200 shadow-sm object-contain"
+                      />
+                    ) : (
+                      <div key={i} className="flex items-center gap-2 px-3 py-2 bg-blue-50 rounded-lg border border-blue-100 text-sm">
+                        <FileText className="h-4 w-4 text-blue-600 flex-shrink-0" />
+                        <span className="text-neutral-700 max-w-[200px] truncate text-xs">
+                          {attachment.name ?? "file"}
+                        </span>
+                      </div>
+                    )
+                  ))}
+                </div>
+              )}
               <div className={cn(
                 "rounded-xl px-4 py-3",
-                message.role === "user" 
-                  ? "bg-blue-600 text-white shadow-sm" 
+                message.role === "user"
+                  ? "bg-blue-600 text-white shadow-sm"
                   : "bg-white text-neutral-900 border border-neutral-200 shadow-sm"
               )}>
                 <div className="text-sm">
