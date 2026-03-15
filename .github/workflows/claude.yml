@@ -49,18 +49,18 @@ jobs:
             set of tools to launch a browser and interact with the app.
 
           mcp_config: |
-          {
-            "mcpServers": {
-              "playwright": {
-                "command": "npx",
-                "args": [
-                  "@playwright/mcp@latest",
-                  "--allowed-origins",
-                  "localhost:3000;cdn.tailwindcss.com;esm.sh"
-                ]
+            {
+              "mcpServers": {
+                "playwright": {
+                  "command": "npx",
+                  "args": [
+                    "@playwright/mcp@latest",
+                    "--allowed-origins",
+                    "localhost:3000;cdn.tailwindcss.com;esm.sh"
+                  ]
+                }
               }
             }
-          }
           allowed_tools: "Bash(npm:*),Bash(sqlite3:*),mcp__playwright__browser_snapshot,mcp__playwright__browser_click,..."
           
           # This is an optional setting that allows Claude to read CI results on PRs
